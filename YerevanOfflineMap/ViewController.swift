@@ -11,30 +11,55 @@ import GoogleMaps
 import GooglePlaces
 import SwiftyJSON
 import Alamofire
+import CoreLocation
 
 class ViewController: UIViewController, GMSMapViewDelegate,  CLLocationManagerDelegate {
     
-
-    @IBOutlet weak var myMapView: UIView!
     var station = Station()
+    
     var mapView: GMSMapView!
+
+    var center: CLLocationCoordinate2D!
+    var startLocation: CLLocation!
+    var endLocation: CLLocation!
 
     let locationHome: CLLocation = CLLocation(latitude: 40.173393, longitude: 44.456158)
     let locationWork: CLLocation = CLLocation(latitude: 40.205143, longitude: 44.506187)
     
     override func loadView() {
-        let camera = GMSCameraPosition.camera(withLatitude: locationHome.coordinate.latitude, longitude: locationHome.coordinate.longitude, zoom: 15)
+        
+        let camera = GMSCameraPosition.camera(
+            withLatitude: locationHome.coordinate.latitude,
+            longitude: locationHome.coordinate.longitude,
+            zoom: 15
+        )
+        
         mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         view = mapView
         mapView.accessibilityElementsHidden = false
+        
+        
     }
     
-    func buttonAction(sender: UIButton) {
-        print("Hello")
+    override func viewWillAppear(_ animated: Bool) {
+        let button = UIButton(frame: CGRect(x: self.view.bounds.width * 0.85, y: self.view.bounds.height * 0.95, width: 40, height: 20))
+        button.tag = 0
+        button.backgroundColor = UIColor.red
+        button.addTarget(self, action: #selector(buttonAction(sender:)), for: .touchUpInside)
+        view.addSubview(button)
+        
+        let button2 = UIButton(frame: CGRect(x: button.frame.minX - 50, y: self.view.bounds.height * 0.95, width: 40, height: 20))
+        button2.tag = 1
+        
+        button2.backgroundColor = UIColor.blue
+        button2.addTarget(self, action: #selector(buttonAction(sender:)), for: .touchUpInside)
+        view.addSubview(button2)
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         let direction = station.busNames(startLocation: locationHome, endLocation: locationWork)
+        
         drawRoute(direction: direction)
         
         let startPointMarker = GMSMarker()
@@ -61,20 +86,32 @@ class ViewController: UIViewController, GMSMapViewDelegate,  CLLocationManagerDe
         markerWork.snippet = "Ավարտը այստեղ է"
         markerWork.map = mapView
         
-//        let button = UIButton(frame: CGRect(x: 10, y: (self.view.bounds.height / 2), width: 80, height: 20))
-//        button.backgroundColor = UIColor.gray
-//        button.addTarget(self, action: #selector(pressButton(button:)), for: .touchUpInside)
-//        self.view.addSubview(button)
-//        
-//        print("adsasd: ", self.view.frame.width)
+        mapView(mapView: mapView, regionDidChangeAnimated: true)
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        <#code#>
-//    }
-    
-    func pressButton(button: UIButton) {
-        print("pressed!")
+    func buttonAction(sender: UIButton) {
+        let lat = center.latitude
+        let long = center.longitude
+        let pinLocate: CLLocation!
+        let marker = GMSMarker()
+        marker.icon = GMSMarker.markerImage(with: .blue)
+        
+        switch sender.tag {
+        case 0:
+            print("0")
+            startLocation = CLLocation(latitude: lat, longitude: long)
+            pinLocate = startLocation
+        default:
+            print("1")
+            endLocation = CLLocation(latitude: lat, longitude: long)
+            pinLocate = endLocation
+        }
+        
+        print(pinLocate)
+        marker.position = pinLocate.coordinate
+        marker.title = "Աշխատանք"
+        marker.snippet = "Ավարտը այստեղ է"
+        marker.map = mapView
     }
     
     func addMarker(location: [[Double]]) {
@@ -115,6 +152,11 @@ class ViewController: UIViewController, GMSMapViewDelegate,  CLLocationManagerDe
             print("Error, maybe problem is startPositions")
         }
     }
+    
+    func mapView(mapView: GMSMapView, regionDidChangeAnimated animated: Bool) {
+        center = mapView.camera.target
+    }
+    
     
     func drawPath(startLocation: CLLocation, endLocation: CLLocation)
     {

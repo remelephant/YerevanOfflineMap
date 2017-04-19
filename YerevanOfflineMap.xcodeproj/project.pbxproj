@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0655D4DB635DFBF7F0023E65 /* Pods_YerevanOfflineMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CA5A7022E40515E6FFFC2 /* Pods_YerevanOfflineMap.framework */; };
 		831BB2BB1EA4CF520000A693 /* BusStations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831BB2BA1EA4CF520000A693 /* BusStations.swift */; };
+		8329B3721EA7A2D3009733CD /* SBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8329B3711EA7A2D3009733CD /* SBViewController.swift */; };
 		8349E9721EA426F900176E77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8349E9711EA426F900176E77 /* AppDelegate.swift */; };
 		8349E9741EA426F900176E77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8349E9731EA426F900176E77 /* ViewController.swift */; };
 		8349E9771EA426F900176E77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8349E9751EA426F900176E77 /* Main.storyboard */; };
@@ -22,13 +23,14 @@
 		5C900FA5363D5DFD6EB18E84 /* Pods-YerevanOfflineMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YerevanOfflineMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YerevanOfflineMap/Pods-YerevanOfflineMap.debug.xcconfig"; sourceTree = "<group>"; };
 		5DB04C6EC88C03D13F2CB2C2 /* Pods-YerevanOfflineMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YerevanOfflineMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-YerevanOfflineMap/Pods-YerevanOfflineMap.release.xcconfig"; sourceTree = "<group>"; };
 		831BB2BA1EA4CF520000A693 /* BusStations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStations.swift; sourceTree = "<group>"; };
+		8329B3711EA7A2D3009733CD /* SBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBViewController.swift; path = ../SBViewController.swift; sourceTree = "<group>"; };
 		8349E96E1EA426F900176E77 /* YerevanOfflineMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YerevanOfflineMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8349E9711EA426F900176E77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8349E9731EA426F900176E77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8349E9711EA426F900176E77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = YerevanOfflineMap/AppDelegate.swift; sourceTree = "<group>"; };
+		8349E9731EA426F900176E77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = YerevanOfflineMap/ViewController.swift; sourceTree = "<group>"; };
 		8349E9761EA426F900176E77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8349E9781EA426F900176E77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8349E9781EA426F900176E77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = YerevanOfflineMap/Assets.xcassets; sourceTree = "<group>"; };
 		8349E97B1EA426F900176E77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8349E97D1EA426F900176E77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8349E97D1EA426F900176E77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = YerevanOfflineMap/Info.plist; sourceTree = "<group>"; };
 		8382BE7B1EA4F674004900B4 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../Library/Developer/Xcode/DerivedData/YerevanOfflineMap-dytsjmtcoqkaiaanxtssvfqqjzvu/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		83F1EF241EA4F8F100292E3A /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Release-iphoneos/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -56,13 +58,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		8349E9651EA426F900176E77 = {
+		8323612E1EA760BE00902B64 /* Suppor */ = {
 			isa = PBXGroup;
 			children = (
-				8349E9701EA426F900176E77 /* YerevanOfflineMap */,
+				8349E9731EA426F900176E77 /* ViewController.swift */,
+				8349E9711EA426F900176E77 /* AppDelegate.swift */,
+				8349E9781EA426F900176E77 /* Assets.xcassets */,
+				8349E97A1EA426F900176E77 /* LaunchScreen.storyboard */,
+				8349E97D1EA426F900176E77 /* Info.plist */,
 				8349E96F1EA426F900176E77 /* Products */,
 				A3D3CBEF55205A8581F7AECE /* Pods */,
 				262AC0271E33510885B1795A /* Frameworks */,
+			);
+			name = Suppor;
+			sourceTree = "<group>";
+		};
+		8349E9651EA426F900176E77 = {
+			isa = PBXGroup;
+			children = (
+				8323612E1EA760BE00902B64 /* Suppor */,
+				8349E9701EA426F900176E77 /* YerevanOfflineMap */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,13 +92,9 @@
 		8349E9701EA426F900176E77 /* YerevanOfflineMap */ = {
 			isa = PBXGroup;
 			children = (
-				8349E9711EA426F900176E77 /* AppDelegate.swift */,
-				8349E9731EA426F900176E77 /* ViewController.swift */,
-				8349E9751EA426F900176E77 /* Main.storyboard */,
-				8349E9781EA426F900176E77 /* Assets.xcassets */,
-				8349E97A1EA426F900176E77 /* LaunchScreen.storyboard */,
-				8349E97D1EA426F900176E77 /* Info.plist */,
 				831BB2BA1EA4CF520000A693 /* BusStations.swift */,
+				8329B3711EA7A2D3009733CD /* SBViewController.swift */,
+				8349E9751EA426F900176E77 /* Main.storyboard */,
 			);
 			path = YerevanOfflineMap;
 			sourceTree = "<group>";
@@ -222,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8349E9741EA426F900176E77 /* ViewController.swift in Sources */,
+				8329B3721EA7A2D3009733CD /* SBViewController.swift in Sources */,
 				8349E9721EA426F900176E77 /* AppDelegate.swift in Sources */,
 				831BB2BB1EA4CF520000A693 /* BusStations.swift in Sources */,
 			);
@@ -244,6 +256,7 @@
 				8349E97B1EA426F900176E77 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = YerevanOfflineMap;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
