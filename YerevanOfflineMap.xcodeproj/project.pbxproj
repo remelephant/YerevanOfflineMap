@@ -14,7 +14,6 @@
 		8349E9771EA426F900176E77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8349E9751EA426F900176E77 /* Main.storyboard */; };
 		8349E9791EA426F900176E77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8349E9781EA426F900176E77 /* Assets.xcassets */; };
 		8349E97C1EA426F900176E77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8349E97A1EA426F900176E77 /* LaunchScreen.storyboard */; };
-		8382BE7C1EA4F674004900B4 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8382BE7B1EA4F674004900B4 /* Alamofire.framework */; };
 		83F1EF251EA4F8F100292E3A /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F1EF241EA4F8F100292E3A /* SwiftyJSON.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +39,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				83F1EF251EA4F8F100292E3A /* SwiftyJSON.framework in Frameworks */,
-				8382BE7C1EA4F674004900B4 /* Alamofire.framework in Frameworks */,
 				0655D4DB635DFBF7F0023E65 /* Pods_YerevanOfflineMap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

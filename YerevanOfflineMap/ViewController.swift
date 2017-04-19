@@ -6,50 +6,75 @@
 //  Copyright © 2017 Vahagn Gevorgyan. All rights reserved.
 //
 
-//import UIKit
-//
-//class ViewController: UIViewController {
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        // Do any additional setup after loading the view, typically from a nib.
-//    }
-//
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-//        // Dispose of any resources that can be recreated.
-//    }
-//
-//
-//}
-
 import UIKit
 import GoogleMaps
 import GooglePlaces
 import SwiftyJSON
 import Alamofire
 
-class ViewController: UIViewController, GMSMapViewDelegate ,  CLLocationManagerDelegate {
+class ViewController: UIViewController, GMSMapViewDelegate,  CLLocationManagerDelegate {
     
+
+    @IBOutlet weak var myMapView: UIView!
+    var station = Station()
     var mapView: GMSMapView!
+
+    let locationHome: CLLocation = CLLocation(latitude: 40.173393, longitude: 44.456158)
+    let locationWork: CLLocation = CLLocation(latitude: 40.205143, longitude: 44.506187)
     
     override func loadView() {
-        let camera = GMSCameraPosition.camera(withLatitude: 40.176798, longitude: 44.438761, zoom: 15)
+        let camera = GMSCameraPosition.camera(withLatitude: locationHome.coordinate.latitude, longitude: locationHome.coordinate.longitude, zoom: 15)
         mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         view = mapView
-        
         mapView.accessibilityElementsHidden = false
+    }
+    
+    func buttonAction(sender: UIButton) {
+        print("Hello")
+    }
+    
+    override func viewDidLoad() {
+        let direction = station.busNames(startLocation: locationHome, endLocation: locationWork)
+        drawRoute(direction: direction)
         
-        // Creates a marker in the center of the map.
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: 40.176798, longitude: 44.438761)
-        marker.title = "StartPoint"
-        marker.snippet = "ՀԱԹ"
-        marker.map = mapView
-        addMarker(location: location)
-        let stationLocation = doubleToCllocation(doubleArray: transportNumber77Up)
-        drawRoute(station: stationLocation, startPosition: stationLocation[1])
-//        drawPath(startLocation: stationLocation[0], endLocation: stationLocation[1])
+        let startPointMarker = GMSMarker()
+        startPointMarker.position = direction.1.coordinate
+        startPointMarker.title = "Նստել"
+        startPointMarker.map = mapView
+        
+        let endPointMarker = GMSMarker()
+        endPointMarker.position = direction.2.coordinate
+        endPointMarker.title = "Իջնել"
+        endPointMarker.map = mapView
+        
+        let markerHome = GMSMarker()
+        markerHome.icon = GMSMarker.markerImage(with: .green)
+        markerHome.position = locationHome.coordinate
+        markerHome.title = "Տուն"
+        markerHome.snippet = "Սկիզբը այստեղ է"
+        markerHome.map = mapView
+        
+        let markerWork = GMSMarker()
+        markerWork.icon = GMSMarker.markerImage(with: .blue)
+        markerWork.position = locationWork.coordinate
+        markerWork.title = "Աշխատանք"
+        markerWork.snippet = "Ավարտը այստեղ է"
+        markerWork.map = mapView
+        
+//        let button = UIButton(frame: CGRect(x: 10, y: (self.view.bounds.height / 2), width: 80, height: 20))
+//        button.backgroundColor = UIColor.gray
+//        button.addTarget(self, action: #selector(pressButton(button:)), for: .touchUpInside)
+//        self.view.addSubview(button)
+//        
+//        print("adsasd: ", self.view.frame.width)
+    }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        <#code#>
+//    }
+    
+    func pressButton(button: UIButton) {
+        print("pressed!")
     }
     
     func addMarker(location: [[Double]]) {
@@ -71,12 +96,17 @@ class ViewController: UIViewController, GMSMapViewDelegate ,  CLLocationManagerD
         rectangle.map = mapView
     }
     
-    func drawRoute(station: [CLLocation], startPosition: CLLocation) {
+    func drawRoute(direction: direction) {
+        
+        let station: [CLLocation] = direction.0
+        let startPosition: CLLocation = direction.1
+        let endPosition: CLLocation = direction.2
         
         if let startIndex = station.index(of: startPosition) {
             var tempLocation = startPosition
+            let endIndex = station.index(of: endPosition)!
             for i in station {
-                if index(ofAccessibilityElement: i) > startIndex {
+                if station.index(of: i)! > startIndex && station.index(of: i)! <= endIndex {
                     drawPath(startLocation: tempLocation, endLocation: i)
                     tempLocation = i
                 }
@@ -96,10 +126,10 @@ class ViewController: UIViewController, GMSMapViewDelegate ,  CLLocationManagerD
         
         Alamofire.request(url).responseJSON { response in
             
-            print(response.request as Any)  // original URL request
-            print(response.response as Any) // HTTP URL response
-            print(response.data as Any)     // server data
-            print(response.result as Any)   // result of response serialization
+//            print(response.request as Any)  // original URL request
+//            print(response.response as Any) // HTTP URL response
+//            print(response.data as Any)     // server data
+//            print(response.result as Any)   // result of response serialization
             
             let json = JSON(data: response.data!)
             let routes = json["routes"].arrayValue
@@ -116,14 +146,6 @@ class ViewController: UIViewController, GMSMapViewDelegate ,  CLLocationManagerD
             }
             
         }
-    }
-    
-    func doubleToCllocation(doubleArray: [[Double]]) -> [CLLocation] {
-        var locations: [CLLocation] = []
-        for i in doubleArray {
-            locations.append(CLLocation(latitude: i[0], longitude: i[1]))
-        }
-        return locations
     }
 }
 
